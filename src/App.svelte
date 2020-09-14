@@ -8,11 +8,9 @@
 </script>
 
 <header>
-
 </header>
 <main>
 	<Router {routes} />
 </main>
 <footer>
-
 </footer>
