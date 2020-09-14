@@ -1,6 +1,16 @@
 /* eslint-disable no-undef */
 import axios from 'axios';
 
+const ABSOLUTE_TEMPERATURE = 273.15;
+
+// weather: 天気,
+// weatherDetail: 天気の詳細,
+// temperature: 温度 摂氏,
+// windSpeed: 速度,
+// windDegree: 角度,
+// city: 都市名,
+// cityId: 都市のAPIでのID,
+
 const getCurrentWeatherData = (data) => {
   const {
     weather: {
@@ -21,14 +31,21 @@ const getCurrentWeatherData = (data) => {
   return {
     weather: main,
     weatherDetail: description,
-    temperature: temp,
+    temperature: temp - ABSOLUTE_TEMPERATURE,
     windSpeed: speed,
     windDegree: deg,
     city: name,
     cityId: id,
   };
 };
-
+// city: 都市名
+// cityId: 都市ID
+// forecast
+  // temperature: 温度,
+  // weather: day.weather.main,
+  // weatherDetail: day.weather.description,
+  // windSpeed: day.speed,
+  // windDegree: day.deg,
 const getWeatherForecastData = (data) => {
   const {
     city: {
@@ -38,7 +55,7 @@ const getWeatherForecastData = (data) => {
     list,
   } = data;
   const forecast = list.map((day) => ({
-    temperature: day.temp.day,
+    temperature: day.temp.day - ABSOLUTE_TEMPERATURE,
     weather: day.weather.main,
     weatherDetail: day.weather.description,
     windSpeed: day.speed,
