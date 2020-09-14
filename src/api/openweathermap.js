@@ -52,8 +52,12 @@ const getWeatherForecastData = (data) => {
   };
 };
 
-export const getNowWeather = async (query) => {
-  const queryString = Object.entries({ ...query, appid: __myapp.env.WEATHER_MAP_API_KEY })
+export const getNowWeather = async (lat, lon) => {
+  const queryString = Object.entries({
+    lat,
+    lon,
+    appid: __myapp.env.WEATHER_MAP_API_KEY,
+  })
     .map((iter) => `${iter[0]}=${iter[1]}`).join('&');
 
   const url = `https://api.openweathermap.org/data/2.5/weather?${queryString}`;
@@ -66,8 +70,13 @@ export const getNowWeather = async (query) => {
   }
 };
 
-export const getWeatherForecast = async (query) => {
-  const queryString = Object.entries({ ...query, appid: __myapp.env.WEATHER_MAP_API_KEY })
+export const getWeatherForecast = async (lat, lon, cnt) => {
+  const queryString = Object.entries({
+    lat,
+    lon,
+    cnt,
+    appid: __myapp.env.WEATHER_MAP_API_KEY,
+  })
     .map((iter) => `${iter[0]}=${iter[1]}`).join('&');
 
   const url = `https://api.openweathermap.org/data/2.5/forecast/daily?${queryString}`;
