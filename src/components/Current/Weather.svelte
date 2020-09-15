@@ -25,7 +25,7 @@
       alt="CurrentWeather image" />
   </Media>
   <Media body>
-    <Media heading>XX℃</Media>
+    <Media heading><strong>XX℃</strong></Media>
     
   </Media>
 </Media>
