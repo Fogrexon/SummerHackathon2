@@ -17,6 +17,7 @@ const getCurrentWeatherData = (data) => {
       {
         main,
         description,
+        icon,
       },
     ],
     main: {
@@ -33,6 +34,7 @@ const getCurrentWeatherData = (data) => {
   return {
     weather: main,
     weatherDetail: description,
+    weatherIconUrl: `http://openweathermap.org/img/wn/${icon}@4x.png`,
     temperature: temp - ABSOLUTE_TEMPERATURE,
     windSpeed: speed,
     windDegree: deg,
