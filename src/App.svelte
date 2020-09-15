@@ -2,7 +2,7 @@
 	import Router from 'svelte-spa-router';
 	import Home from './pages/Home.svelte';
 	import Apitest from './pages/Apitest.svelte';
-
+	import NavBar from './components/NavBar.svelte';
 	const routes = {
 	  '/': Home,
 	  '/api': Apitest,
@@ -10,9 +10,11 @@
 </script>
 
 <header>
+	<NavBar />
 </header>
 <main>
 	<Router {routes} />
+	
 </main>
 <footer>
 </footer>

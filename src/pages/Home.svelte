@@ -3,11 +3,11 @@
 </script>
 <Jumbotron>
   <h1>
-    Hello, world!
+    Welcome to HackTrip!!
   </h1>
 </Jumbotron>
 <Container>
   <p>
-    これはテストページですよ
+    このページでは位置情報をもとに周辺の様々な情報を一度にご覧いただけます。
   </p>
 </Container>
