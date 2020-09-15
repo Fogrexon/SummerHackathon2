@@ -2,8 +2,7 @@
 <script>
 /* eslint-disable no-undef */
 import { onLocationChange } from '../stores/geoLocationStore';
-// eslint-disable-next-line import/prefer-default-export
-export let pins = [];
+import { pins } from '../stores/pinsStore';
 
 let container;
 let map;
@@ -12,6 +11,7 @@ const apiKey = __myapp.env.GOOGLE_MAP_API_KEY;
 
 let lat;
 let lng;
+let pinNum = 0;
 
 const makeUserLocation = () => {
   // eslint-disable-next-line no-unused-vars
@@ -31,22 +31,27 @@ const makeUserLocation = () => {
 };
 
 const makePlacePin = () => {
-  pins.map((place) => {
-    const marker = new google.maps.Marker({ // マーカーの追加
-      position: {
-        lat: place.latitude,
-        lng: place.longitude,
-      }, // マーカーを立てる位置を指定
-      map, // マーカーを立てる地図を指定
-    });
+  pins.subscribe((value) => {
+    value.slice(pinNum, value.length).map((place) => {
+      const marker = new google.maps.Marker({ // マーカーの追加
+        position: {
+          lat: place.latitude,
+          lng: place.longitude,
+        }, // マーカーを立てる位置を指定
+        animation: google.maps.Animation.DROP,
+        map, // マーカーを立てる地図を指定
+      });
 
-    const infoWindow = new google.maps.InfoWindow({ // 吹き出しの追加
-      content: `<div class="sample">${place.description}</div>`, // 吹き出しに表示する内容
+      const infoWindow = new google.maps.InfoWindow({ // 吹き出しの追加
+        content: place.url ? `<a href=${place.url}>${place.description}</a>` : `<div>${place.description}</div>`, // 吹き出しに表示する内容
+      });
+      marker.addListener('click', () => { // マーカーをクリックしたとき
+        infoWindow.open(map, marker); // 吹き出しの表示
+      });
+
+      pinNum = value.length;
+      return null;
     });
-    marker.addListener('click', () => { // マーカーをクリックしたとき
-      infoWindow.open(map, marker); // 吹き出しの表示
-    });
-    return null;
   });
 };
 onLocationChange((value) => {
