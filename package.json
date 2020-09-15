@@ -28,6 +28,7 @@
   },
   "dependencies": {
     "axios": "^0.20.0",
+    "axios-jsonp": "^1.0.4",
     "dotenv": "^8.2.0",
     "sirv-cli": "^1.0.0",
     "svelte-spa-router": "^2.2.0",
