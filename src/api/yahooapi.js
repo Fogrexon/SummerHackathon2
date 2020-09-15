@@ -44,13 +44,13 @@ export const getNearEntertainment = async (lat, lon) => {
     output: 'json',
     gc: '0303,0305',
     sort: 'hybrid',
+    results: 20,
   };
   try {
     const data = await axios.get('https://map.yahooapis.jp/search/local/V1/localSearch', {
       params,
       adapter: axiosJsonpAdapter,
     });
-    console.log(data);
     const {
       Feature,
     } = data.data;
@@ -61,7 +61,7 @@ export const getNearEntertainment = async (lat, lon) => {
       longitude: f.Geometry.Coordinates.split(',')[1] * 1,
       genre: f.Property.Genre[0].Name,
       description: f.Description,
-      station: f.Property.Station[0].Name,
+      station: f.Property.Station.map(({ Name, Time }) => ({ name: Name, time: Time })),
     }));
   } catch (e) {
     console.error(e);

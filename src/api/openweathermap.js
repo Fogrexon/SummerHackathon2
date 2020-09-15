@@ -71,7 +71,7 @@ const getWeatherForecastData = (data) => {
   };
 };
 
-export const getNowWeather = async (lat, lon) => {
+export const getCurrentWeather = async (lat, lon) => {
   const params = {
     lat,
     lon,
