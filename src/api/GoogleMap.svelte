@@ -32,6 +32,7 @@ const makeUserLocation = () => {
 
 const makePlacePin = () => {
   pins.subscribe((value) => {
+    console.log(value);
     value.slice(pinNum, value.length).map((place) => {
       const marker = new google.maps.Marker({ // マーカーの追加
         position: {
@@ -39,6 +40,9 @@ const makePlacePin = () => {
           lng: place.longitude,
         }, // マーカーを立てる位置を指定
         animation: google.maps.Animation.DROP,
+        icon: place.type === 'Yahoo' ? {
+          url: 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png',
+        } : null,
         map, // マーカーを立てる地図を指定
       });
 

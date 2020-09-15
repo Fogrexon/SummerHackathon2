@@ -35,7 +35,7 @@ export const getPlaceLabel = async (lat, lon) => {
   }
 };
 
-export const getNearEntertainment = async (lat, lon) => {
+export const getNearEntertainment = async (lat, lon, start = 1) => {
   const params = {
     appid: __myapp.env.YAHOO_API_KEY,
     lat,
@@ -44,7 +44,8 @@ export const getNearEntertainment = async (lat, lon) => {
     output: 'json',
     gc: '0303,0305',
     sort: 'hybrid',
-    results: 20,
+    results: 10,
+    start,
   };
   try {
     const data = await axios.get('https://map.yahooapis.jp/search/local/V1/localSearch', {
@@ -52,17 +53,23 @@ export const getNearEntertainment = async (lat, lon) => {
       adapter: axiosJsonpAdapter,
     });
     const {
+      ResultInfo: {
+        Total,
+      },
       Feature,
     } = data.data;
 
-    return Feature.map((f) => ({
-      name: f.Name,
-      latitude: f.Geometry.Coordinates.split(',')[0] * 1,
-      longitude: f.Geometry.Coordinates.split(',')[1] * 1,
-      genre: f.Property.Genre[0].Name,
-      description: f.Description,
-      station: f.Property.Station.map(({ Name, Time }) => ({ name: Name, time: Time })),
-    }));
+    return {
+      total: Total,
+      features: Feature.map((f) => ({
+        name: f.Name,
+        longitude: f.Geometry.Coordinates.split(',')[0] * 1,
+        latitude: f.Geometry.Coordinates.split(',')[1] * 1,
+        category: f.Property.Genre[0].Name,
+        description: f.Description,
+        station: f.Property.Station.map(({ Name, Time }) => ({ name: Name, time: Time })),
+      })),
+    };
   } catch (e) {
     console.error(e);
     return [];
