@@ -40,7 +40,7 @@ export const getNearEntertainment = async (lat, lon) => {
     appid: __myapp.env.YAHOO_API_KEY,
     lat,
     lon,
-    dist: 10,
+    dist: 3,
     output: 'json',
     gc: '0303,0305',
     sort: 'hybrid',
