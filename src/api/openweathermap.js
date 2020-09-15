@@ -13,10 +13,12 @@ const ABSOLUTE_TEMPERATURE = 273.15;
 
 const getCurrentWeatherData = (data) => {
   const {
-    weather: {
-      main,
-      description,
-    },
+    weather: [
+      {
+        main,
+        description,
+      },
+    ],
     main: {
       temp,
     },
@@ -70,37 +72,35 @@ const getWeatherForecastData = (data) => {
 };
 
 export const getNowWeather = async (lat, lon) => {
-  const queryString = Object.entries({
+  const params = {
     lat,
     lon,
     appid: __myapp.env.WEATHER_MAP_API_KEY,
-  })
-    .map((iter) => `${iter[0]}=${iter[1]}`).join('&');
+  };
 
-  const url = `https://api.openweathermap.org/data/2.5/weather?${queryString}`;
+  const url = 'https://api.openweathermap.org/data/2.5/weather';
 
   try {
-    const data = await axios.get(url);
-    return getCurrentWeatherData(data);
+    const data = await axios.get(url, { params });
+    return getCurrentWeatherData(data.data);
   } catch (e) {
     return e;
   }
 };
 
 export const getWeatherForecast = async (lat, lon, cnt) => {
-  const queryString = Object.entries({
+  const params = {
     lat,
     lon,
     cnt,
     appid: __myapp.env.WEATHER_MAP_API_KEY,
-  })
-    .map((iter) => `${iter[0]}=${iter[1]}`).join('&');
+  };
 
-  const url = `https://api.openweathermap.org/data/2.5/forecast/daily?${queryString}`;
+  const url = 'https://api.openweathermap.org/data/2.5/forecast/daily';
 
   try {
-    const data = await axios.get(url);
-    return getWeatherForecastData(data);
+    const data = await axios.get(url, { params });
+    return getWeatherForecastData(data.data);
   } catch (e) {
     return e;
   }

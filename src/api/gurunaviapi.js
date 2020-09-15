@@ -32,18 +32,16 @@ const getRestaurantData = (data) => {
 };
 
 export const getNearRestaurant = async (lat, lon) => {
-  const queryString = Object.entries({
+  const params = {
     latitude: lat,
     longitude: lon,
     keyid: __myapp.env.GURUNAVI_API_KEY,
-  })
-    .map((iter) => `${iter[0]}=${iter[1]}`).join('&');
-
-  const url = `https://api.openweathermap.org/data/2.5/weather?${queryString}`;
+  };
+  const url = 'https://api.gnavi.co.jp/RestSearchAPI/v3';
 
   try {
-    const data = await axios.get(url);
-    return getRestaurantData(data);
+    const data = await axios.get(url, { params });
+    return getRestaurantData(data.data);
   } catch (e) {
     return e;
   }
