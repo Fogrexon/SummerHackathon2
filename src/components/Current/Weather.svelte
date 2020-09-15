@@ -1,7 +1,16 @@
-<script>
-  import WeatherBox from './WeatherBox.svelte';
+<script lang="ts">
+  import { Media } from 'sveltestrap';
 </script>
 
-<WeatherBox>
-  <p>XX℃</p>
-</WeatherBox>
+<Media>
+  <Media left href="#">
+    <Media
+      object
+      src="http://openweathermap.org/img/wn/10d@2x.png"
+      alt="weather image" />
+  </Media>
+  <Media body>
+    XX℃
+  </Media>
+</Media>
+

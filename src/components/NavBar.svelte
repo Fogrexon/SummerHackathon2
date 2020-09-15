@@ -6,12 +6,12 @@
       NavbarBrand,
       Nav,
       NavItem,
-      NavLink
+      NavLink,
     } from 'sveltestrap';
-  
+
     let isOpen = false;
     const toggle = () => (isOpen = !isOpen);
-  </script>
+    </script>
   
   <Navbar color="light" light>
     <NavbarBrand href="/" class="mr-auto">hacktrip</NavbarBrand>
@@ -22,7 +22,7 @@
           <NavLink href="#components/">Current Location</NavLink>
         </NavItem>
         <NavItem>
-          <NavLink href="https://github.com/bestguy/sveltestrap">About</NavLink>
+          <NavLink href="#AboutUs">About</NavLink>
         </NavItem>
       </Nav>
     </Collapse>
