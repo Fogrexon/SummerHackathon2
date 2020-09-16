@@ -6,6 +6,7 @@
   <Row>
     <Col xs="6" sm="4">
       This is left column
+      <Weather/>
     </Col>
     <Col xs="12" sm="8">
       This.is right column
@@ -14,4 +15,3 @@
 </div>
 <style>
 </style>
-<Weather/>
