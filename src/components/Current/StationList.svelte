@@ -17,7 +17,7 @@
     });
   });
 </script>
-<Table>
+<Table class="station">
   <thead>
     <tr>
       <th>#</th>
@@ -41,5 +41,8 @@
 <style>
   tbody {
     font-size: x-small;
+  }
+  table {
+    width: 100%;
   }
 </style>
