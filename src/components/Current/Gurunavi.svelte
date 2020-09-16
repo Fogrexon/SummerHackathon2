@@ -87,7 +87,7 @@
   .card-list {
     overflow-x: auto;
     white-space: nowrap;
-    padding: 10px;
+    padding: 0px 10px;
   }
   .end-of-list {
     height: 100%;
