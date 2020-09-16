@@ -1,6 +1,5 @@
 <script>
   import { onMount } from 'svelte';
-  import { Button } from 'sveltestrap';
   import Card from './Card.svelte';
   import { getNearEntertainment } from '../../api/yahooapi';
   import { onLocationChange } from '../../stores/geoLocationStore';
@@ -21,16 +20,18 @@
       if (lat === 0 && lon === 0) return;
       getNearEntertainment(lat, lon)
         .then((data) => {
-          features = data.features;
-          restNum += data.features.length;
+          features = data.features.map((rest, i) => ({ ...rest, label: restNum + i + 1 }));
           totalHitCount = data.total;
           addPins(features.map(({
-            name, latitude, longitude,
+            name, latitude, longitude, url,
           }) => ({
             description: name,
+            url,
             latitude: latitude * 1,
             longitude: longitude * 1,
             type: 'Yahoo',
+            // eslint-disable-next-line no-plusplus
+            label: (restNum++) + 1,
           })));
         });
     });
@@ -39,37 +40,60 @@
   const getMoreRestaurants = () => {
     getNearEntertainment(lat, lon, restNum + 1)
       .then((data) => {
-        features = [...features, ...data.features];
-        restNum += data.features.length;
+        features = [
+          ...features,
+          ...data.features.map((rest, i) => ({ ...rest, label: restNum + i + 1 })),
+        ];
 
         addPins(data.features.map(({
-          name, latitude, longitude,
+          name, latitude, longitude, url,
         }) => ({
           description: name,
+          url,
           latitude: latitude * 1,
           longitude: longitude * 1,
           type: 'Yahoo',
+          // eslint-disable-next-line no-plusplus
+          label: (restNum++) + 1,
         })));
       });
   };
 </script>
-
-<h2>周辺のエンタメ施設</h2>
-<div class="card-list">
-  {#each features as features}
-    <Card
-      name={features.name}
-      category={features.category}
-      />
-  {/each}
-  {#if restNum < totalHitCount}
-    <Button color="primary" on:click={() => getMoreRestaurants()}>For More Restaurants</Button>
-  {/if}
+<div class="entertainments">
+  <h2>周辺のエンタメ施設</h2>
+  <ul class="card-list">
+    {#each features as feature}
+      <Card
+        name={`${feature.label}: ${feature.name}`}
+        category={feature.category}
+        url={feature.url}
+        />
+    {/each}
+    {#if restNum < totalHitCount}
+      <div class="end-of-list">
+        <i class="fas fa-plus next-icon" on:click={() => getMoreRestaurants()}></i>
+      </div>
+      
+    {/if}
+  </ul>
 </div>
 
 <style>
+  .entertainments {
+
+  }
   .card-list {
-    flex: flex;
-    flex-wrap: nowrap;
+    overflow-x: auto;
+    white-space: nowrap;
+    padding: 0px 10px;
+  }
+  .end-of-list {
+    height: 100%;
+    display: inline-block;
+    justify-content: center;
+    align-items: center;
+  }
+  .next-icon {
+    font-size: 50px;
   }
 </style>

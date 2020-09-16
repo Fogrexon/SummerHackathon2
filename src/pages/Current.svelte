@@ -9,15 +9,14 @@
 </script>
 
 <div class="wrapper">
-  <PlaceLabel />
   <Row>
-
     <Col xs="12" md="4">
+      <PlaceLabel />
       <Weather/>
       <StationList />
     </Col>
     <Col xs="12" md="8">
-      <div style="width:100%;height: 500px;">
+      <div style="width:100%;height:400px;">
         <GoogleMap />
       </div>
       <Gurunavi />
@@ -26,4 +25,9 @@
   </Row>
 </div>
 <style>
+  .wrapper {
+    width: 100%;
+    margin: 0px;
+    padding: 0px 10px;
+  }
 </style>

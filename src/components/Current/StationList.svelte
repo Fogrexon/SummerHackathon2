@@ -40,7 +40,7 @@
 
 <style>
   tbody {
-    font-size: x-small;
+    font-size: small;
   }
   table {
     width: 100%;
