@@ -12,29 +12,33 @@ import axios from 'axios';
 const getRestaurantData = (data) => {
   const {
     hit_per_page,
+    total_hit_count,
     rest,
   } = data;
 
   const restaurants = rest.map(({
-    name, latitude, longitude, image_url: { shop_image1 }, url,
+    name, latitude, longitude, image_url: { shop_image1 }, url, category,
   }) => ({
     name,
     latitude,
     longitude,
     image: shop_image1,
     url,
+    category,
   }));
 
   return {
-    count: hit_per_page,
+    hitPerPage: hit_per_page,
+    totalHitCount: total_hit_count,
     restaurants,
   };
 };
 
-export const getNearRestaurant = async (lat, lon) => {
+export const getNearRestaurant = async (lat, lon, offset = 1) => {
   const params = {
     latitude: lat,
     longitude: lon,
+    offset,
     keyid: __myapp.env.GURUNAVI_API_KEY,
   };
   const url = 'https://api.gnavi.co.jp/RestSearchAPI/v3';

@@ -1,3 +1,4 @@
+
 <script>
   import { Media } from 'sveltestrap';
   import { onMount } from 'svelte';
@@ -19,6 +20,9 @@
 </script>
 
 <h2>Weather</h2>
+
+
+
 <Media>
   <Media left href="#">
     <Media
@@ -31,4 +35,5 @@
     
   </Media>
 </Media>
+
 
