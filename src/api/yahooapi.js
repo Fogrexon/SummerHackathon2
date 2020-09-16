@@ -68,7 +68,10 @@ export const getNearEntertainment = async (lat, lon, start = 1) => {
         latitude: f.Geometry.Coordinates.split(',')[1] * 1,
         category: f.Property.Genre[0].Name,
         description: f.Description,
-        station: f.Property.Station.map(({ Name, Time }) => ({ name: Name, time: Time })),
+        station:
+          f.Property.Station
+            ? f.Property.Station.map(({ Name, Time }) => ({ name: Name, time: Time }))
+            : null,
         url: `https://loco.yahoo.co.jp/place/g-${f.Gid}`,
       })),
     };

@@ -77,15 +77,14 @@
     {/if}
   </ul>
 </div>
+<img src="/images/yahoo.logo.gif" />
 
 <style>
-  .entertainments {
-
-  }
   .card-list {
     overflow-x: auto;
     white-space: nowrap;
-    padding: 0px 10px;
+    padding: 0px 0px;
+    margin: 0px auto;
   }
   .end-of-list {
     height: 100%;
