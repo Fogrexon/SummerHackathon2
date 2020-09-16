@@ -32,7 +32,6 @@ const makeUserLocation = () => {
 
 const makePlacePin = () => {
   pins.subscribe((value) => {
-    console.log(value);
     value.slice(pinNum, value.length).map((place) => {
       const marker = new google.maps.Marker({ // マーカーの追加
         position: {
@@ -58,19 +57,20 @@ const makePlacePin = () => {
     });
   });
 };
-onLocationChange((value) => {
-  lat = value.latitude;
-  lng = value.longitude;
-});
 
 window.initMap = () => {
-  // eslint-disable-next-line no-undef
-  map = new google.maps.Map(container, {
-    zoom: 15,
-    center: { lat, lng },
+  onLocationChange((value) => {
+    lat = value.latitude;
+    lng = value.longitude;
+    if (lat === 0 && lng === 0) return;
+    // eslint-disable-next-line no-undef
+    map = new google.maps.Map(container, {
+      zoom: 15,
+      center: { lat, lng },
+    });
+    makeUserLocation();
+    makePlacePin();
   });
-  makeUserLocation();
-  makePlacePin();
 };
 
 // onMount(async () => {
