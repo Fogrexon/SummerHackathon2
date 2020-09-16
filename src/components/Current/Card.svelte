@@ -5,7 +5,11 @@
 </script>
 
 <div class="restaurant">
-  <h5><a href={url} target="_blank">{name}</a></h5>
+  {#if url}
+    <h5><a href={url} target="_blank">{name}</a></h5>
+  {:else}
+    <h5>{name}</h5>
+  {/if}
   <h6>{category}</h6>
 </div>
 
