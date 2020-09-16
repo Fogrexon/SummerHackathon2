@@ -52,6 +52,7 @@ export const getNearEntertainment = async (lat, lon, start = 1) => {
       params,
       adapter: axiosJsonpAdapter,
     });
+    console.log(data);
     const {
       ResultInfo: {
         Total,
@@ -68,6 +69,7 @@ export const getNearEntertainment = async (lat, lon, start = 1) => {
         category: f.Property.Genre[0].Name,
         description: f.Description,
         station: f.Property.Station.map(({ Name, Time }) => ({ name: Name, time: Time })),
+        url: `https://loco.yahoo.co.jp/place/g-${f.Gid}`,
       })),
     };
   } catch (e) {

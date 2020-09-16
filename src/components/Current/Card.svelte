@@ -4,19 +4,37 @@
   export let category = '';
 </script>
 
-<div class="restaurant">
+<li class="restaurant">
+  <h5>{name}
   {#if url}
-    <h5><a href={url} target="_blank">{name}</a></h5>
-  {:else}
-    <h5>{name}</h5>
+    <a href={url}><i class="fas fa-link link"></i></a>
   {/if}
+  </h5>
   <h6>{category}</h6>
-</div>
+</li>
 
 <style>
   .restaurant {
-    width: 200px;
-    height: 50px;
     display: inline-block;
+    min-width: 100px;
+    height: 100px;
+    margin: 8px;
+    padding: 16px;
+    border: 1px solid #ddd;
+    
+    border-radius: 5px;
+    transition: 0.2s;
+    transform: scale(1);
+  }
+  .restaurant:hover {
+    transform: scale(1.02);
+  }
+  .link {
+    color: black;
+    opacity: 0;
+    transition: 0.2s;
+  }
+  .restaurant:hover .link {
+    opacity: 1;
   }
 </style>
