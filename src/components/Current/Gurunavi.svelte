@@ -1,6 +1,5 @@
 <script>
   import { onMount } from 'svelte';
-  import { Button } from 'sveltestrap';
   import Card from './Card.svelte';
   import { getNearRestaurant } from '../../api/gurunaviapi';
   import { onLocationChange } from '../../stores/geoLocationStore';
@@ -61,24 +60,43 @@
       });
   };
 </script>
-
-<h2>ぐるなび検索</h2>
-<div class="card-list">
-  {#each restaurants as restaurant}
-    <Card
-      name={`${restaurant.label}: ${restaurant.name}`}
-      url={restaurant.url}
-      category={restaurant.category}
-      />
-  {/each}
-  {#if restNum < totalHitCount}
-    <Button color="primary" on:click={() => getMoreRestaurants()}>More Restaurants</Button>
-  {/if}
+<div class="wrapper">
+  <h2>ぐるなび検索</h2>
+  <ul class="card-list">
+    {#each restaurants as restaurant}
+      <Card
+        name={`${restaurant.label}: ${restaurant.name}`}
+        url={restaurant.url}
+        category={restaurant.category}
+        />
+    {/each}
+    {#if restNum < totalHitCount}
+      <div class="end-of-list">
+        <i class="fas fa-plus next-icon" on:click={() => getMoreRestaurants()}></i>
+      </div>
+      
+    {/if}
+  </ul>
 </div>
 
 <style>
+  .wrapper {
+    margin: 5px 0px;
+    padding: 5px;
+  }
   .card-list {
-    flex: flex;
-    flex-wrap: nowrap;
+    overflow-x: auto;
+    white-space: nowrap;
+    padding: 10px;
+  }
+  .end-of-list {
+    height: 100%;
+    display: inline-block;
+    justify-content: center;
+    align-items: center;
+  }
+  .next-icon {
+    font-size: 50px;
+    cursor: pointer;
   }
 </style>
