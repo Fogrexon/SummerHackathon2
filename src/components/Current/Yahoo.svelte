@@ -21,8 +21,7 @@
       if (lat === 0 && lon === 0) return;
       getNearEntertainment(lat, lon)
         .then((data) => {
-          features = data.features;
-          restNum += data.features.length;
+          features = data.features.map((rest, i) => ({ ...rest, label: restNum + i + 1 }));
           totalHitCount = data.total;
           addPins(features.map(({
             name, latitude, longitude,
@@ -31,6 +30,8 @@
             latitude: latitude * 1,
             longitude: longitude * 1,
             type: 'Yahoo',
+            // eslint-disable-next-line no-plusplus
+            label: (restNum++) + 1,
           })));
         });
     });
@@ -39,8 +40,10 @@
   const getMoreRestaurants = () => {
     getNearEntertainment(lat, lon, restNum + 1)
       .then((data) => {
-        features = [...features, ...data.features];
-        restNum += data.features.length;
+        features = [
+          ...features,
+          ...data.features.map((rest, i) => ({ ...rest, label: restNum + i + 1 })),
+        ];
 
         addPins(data.features.map(({
           name, latitude, longitude,
@@ -49,6 +52,8 @@
           latitude: latitude * 1,
           longitude: longitude * 1,
           type: 'Yahoo',
+          // eslint-disable-next-line no-plusplus
+          label: (restNum++) + 1,
         })));
       });
   };
@@ -56,14 +61,14 @@
 
 <h2>周辺のエンタメ施設</h2>
 <div class="card-list">
-  {#each features as features}
+  {#each features as feature}
     <Card
-      name={features.name}
-      category={features.category}
+      name={`${feature.label}: ${feature.name}`}
+      category={feature.category}
       />
   {/each}
   {#if restNum < totalHitCount}
-    <Button color="primary" on:click={() => getMoreRestaurants()}>For More Restaurants</Button>
+    <Button color="primary" on:click={() => getMoreRestaurants()}>More Places</Button>
   {/if}
 </div>
 

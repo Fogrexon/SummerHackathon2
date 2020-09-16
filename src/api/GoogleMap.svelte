@@ -19,14 +19,7 @@ const makeUserLocation = () => {
     map,
     position: new google.maps.LatLng(lat, lng),
     animation: google.maps.Animation.DROP,
-    icon: {
-      fillColor: '#FF0000', // 塗り潰し色
-      fillOpacity: 0.8, // 塗り潰し透過率
-      path: google.maps.SymbolPath.CIRCLE, // 円を指定
-      scale: 10, // 円のサイズ
-      strokeColor: '#FF0000', // 枠の色
-      strokeWeight: 1.0, // 枠の透過率
-    },
+    label: 'U',
   });
 };
 
@@ -39,17 +32,34 @@ const makePlacePin = () => {
           lng: place.longitude,
         }, // マーカーを立てる位置を指定
         animation: google.maps.Animation.DROP,
-        icon: place.type === 'Yahoo' ? {
-          url: 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png',
-        } : null,
-        map, // マーカーを立てる地図を指定
+        icon: {
+          fillColor: place.type === 'Yahoo' ? '#0000FF' : '#FF0000',
+          fillOpacity: 0.8,
+          path: google.maps.SymbolPath.CIRCLE,
+          scale: 15,
+          strokeColor: '#FF0000',
+          strokeWeight: 1.0,
+          anchor: google.maps.Point(0, 0),
+        },
+        label: {
+          color: 'white',
+          text: `${place.label}`,
+        },
+        map,
       });
 
       const infoWindow = new google.maps.InfoWindow({ // 吹き出しの追加
         content: place.url ? `<a href=${place.url}>${place.description}</a>` : `<div>${place.description}</div>`, // 吹き出しに表示する内容
       });
+      let openFlag = false;
       marker.addListener('click', () => { // マーカーをクリックしたとき
-        infoWindow.open(map, marker); // 吹き出しの表示
+        if (openFlag) {
+          infoWindow.close();
+          openFlag = false;
+        } else {
+          infoWindow.open(map, marker);
+          openFlag = true;
+        }
       });
 
       pinNum = value.length;

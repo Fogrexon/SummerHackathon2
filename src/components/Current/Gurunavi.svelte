@@ -21,8 +21,7 @@
       if (lat === 0 && lon === 0) return;
       getNearRestaurant(lat, lon)
         .then((data) => {
-          restaurants = data.restaurants;
-          restNum += data.restaurants.length;
+          restaurants = data.restaurants.map((rest, i) => ({ ...rest, label: restNum + i + 1 }));
           totalHitCount = data.totalHitCount;
           addPins(restaurants.map(({
             name, url, latitude, longitude,
@@ -32,6 +31,8 @@
             latitude: latitude * 1,
             longitude: longitude * 1,
             type: 'Gurunavi',
+            // eslint-disable-next-line no-plusplus
+            label: (restNum++) + 1,
           })));
         });
     });
@@ -40,8 +41,11 @@
   const getMoreRestaurants = () => {
     getNearRestaurant(lat, lon, restNum + 1)
       .then((data) => {
-        restaurants = [...restaurants, ...data.restaurants];
-        restNum += data.restaurants.length;
+        restaurants = [
+          ...restaurants,
+          // eslint-disable-next-line no-plusplus
+          ...data.restaurants.map((rest, i) => ({ ...rest, label: restNum + i + 1 })),
+        ];
 
         addPins(data.restaurants.map(({
           name, url, latitude, longitude,
@@ -51,6 +55,8 @@
           latitude: latitude * 1,
           longitude: longitude * 1,
           type: 'Gurunavi',
+          // eslint-disable-next-line no-plusplus
+          label: (restNum++) + 1,
         })));
       });
   };
@@ -60,13 +66,13 @@
 <div class="card-list">
   {#each restaurants as restaurant}
     <Card
-      name={restaurant.name}
+      name={`${restaurant.label}: ${restaurant.name}`}
       url={restaurant.url}
       category={restaurant.category}
       />
   {/each}
   {#if restNum < totalHitCount}
-    <Button color="primary" on:click={() => getMoreRestaurants()}>For More Restaurants</Button>
+    <Button color="primary" on:click={() => getMoreRestaurants()}>More Restaurants</Button>
   {/if}
 </div>
 
