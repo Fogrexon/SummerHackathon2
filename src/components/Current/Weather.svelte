@@ -4,7 +4,7 @@
   import { getCurrentWeather } from '../../api/openweathermap';
   import { onLocationChange } from '../../stores/geoLocationStore';
   
-  let CurrentWeather = [];
+  let currentWeather = [];
   onMount(() => {
     // このコンポーネントがマウントされたとき
     onLocationChange((value) => {
@@ -12,20 +12,22 @@
       if (value.latitude === 0 && value.longitude === 0) return;
       getCurrentWeather(value.latitude, value.longitude)
         .then((data) => {
-          CurrentWeather = data;
+          currentWeather = data;
         });
     });
   });
 </script>
+
+<h2>Weather</h2>
 <Media>
   <Media left href="#">
     <Media
       object
-      src="http://openweathermap.org/img/wn/10d@2x.png"
-      alt="CurrentWeather image" />
+      src={currentWeather.weatherIconUrl}
+      alt="currentWeather image" />
   </Media>
   <Media body>
-    <Media heading><strong>XX℃</strong></Media>
+    <Media heading><strong>{currentWeather.temperature}</strong></Media>
     
   </Media>
 </Media>
