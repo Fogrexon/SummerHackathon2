@@ -22,7 +22,7 @@
           <NavLink href="/#/current/">Current Location</NavLink>
         </NavItem>
         <NavItem>
-          <NavLink href="#AboutUs">About</NavLink>
+          <NavLink href="/#/about">About</NavLink>
         </NavItem>
       </Nav>
     </Collapse>

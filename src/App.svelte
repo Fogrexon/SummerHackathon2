@@ -4,11 +4,13 @@
 	import Home from './pages/Home.svelte';
 	import Apitest from './pages/Apitest.svelte';
 	import Current from './pages/Current.svelte';
+	import TopPage from './pages/TopPage.svelte';
 
 	const routes = {
-	  '/': Home,
+	  '/': TopPage,
 	  '/api': Apitest,
 	  '/current': Current,
+	  '/about': Home,
 	};
 </script>
 
