@@ -16,7 +16,7 @@
       <StationList />
     </Col>
     <Col xs="12" md="8">
-      <div style="width:100%;height:50vh;">
+      <div style="width:100%;height:400px;">
         <GoogleMap />
       </div>
       <Gurunavi />
