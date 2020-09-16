@@ -19,21 +19,35 @@
   });
 </script>
 
-<h2>Weather</h2>
+<h4>{currentWeather.city}</h4>
 
+<div class="weather">
+  <div class="weathericon">
+    <Media left href="#">
+      <Media
+        object
+        src={currentWeather.weatherIconUrl}
+        alt="currentWeather image" />
+    </Media>
+  </div>
+  <div class="temperature">
+    <span>{Math.floor(currentWeather.temperature)}℃</span>
+  </div>
+</div>
 
+<style>
+.weather {
+  display:flex;
+  align-content: space-around;
+}
+.weathericon {
+  flex-grow:2;
+  align-self: center;
+}
+.temperature {
+  flex-grow:2;
+  align-self: center;
+  font-size: 40px;
+}
 
-<Media>
-  <Media left href="#">
-    <Media
-      object
-      src={currentWeather.weatherIconUrl}
-      alt="currentWeather image" />
-  </Media>
-  <Media body>
-    <Media heading><strong>{Math.floor(currentWeather.temperature)}℃</strong></Media>
-    
-  </Media>
-</Media>
-
-
+</style>
