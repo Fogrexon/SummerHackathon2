@@ -1,5 +1,6 @@
 <script>
   import { Row, Col } from 'sveltestrap';
+  import Weather from '../components/Current/Weather.svelte';
 </script>
 <div class="wrapper">
   <Row>
@@ -13,3 +14,4 @@
 </div>
 <style>
 </style>
+<Weather/>

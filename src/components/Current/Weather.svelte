@@ -27,7 +27,7 @@
       alt="currentWeather image" />
   </Media>
   <Media body>
-    <Media heading><strong>{currentWeather.temperature}</strong></Media>
+    <Media heading><strong>{Math.floor(currentWeather.temperature)}</strong></Media>
     
   </Media>
 </Media>
