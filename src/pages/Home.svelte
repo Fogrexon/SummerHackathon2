@@ -1,10 +1,8 @@
 <script>
   import { Jumbotron, Container } from 'sveltestrap';
   import { Toast, ToastBody, ToastHeader } from 'sveltestrap';
-  const colors = [
-    'primary',
-  ];
 </script>
+
 <Jumbotron>
   <h1>
     About Us.
@@ -17,9 +15,9 @@
   </p>
 </Container>
 
-{#each colors as color}
+
   <div class="p-3"  mb-3>
-    <Toast class="mr-1" {color}>
+    <Toast class="mr-1" >
       <ToastHeader>Fogrex</ToastHeader>
       <ToastBody>
         <p>Real Name：戛山英高</p>
@@ -27,7 +25,7 @@
         <p>twitter：@raincatsanddog1</p>
       </ToastBody>
     </Toast>
-    <Toast class="mr-1" {color}>
+    <Toast class="mr-1" >
       <ToastHeader>chikuwa-taso</ToastHeader>
       <ToastBody>
         <p>Real Name：小沢怜央</p>
@@ -36,4 +34,3 @@
       </ToastBody>
     </Toast>
   </div>
-  {/each}
