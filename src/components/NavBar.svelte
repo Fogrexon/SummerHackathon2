@@ -19,7 +19,7 @@
     <Collapse {isOpen} navbar>
       <Nav navbar>
         <NavItem>
-          <NavLink href="#components/">Current Location</NavLink>
+          <NavLink href="/#/current/">Current Location</NavLink>
         </NavItem>
         <NavItem>
           <NavLink href="#AboutUs">About</NavLink>
