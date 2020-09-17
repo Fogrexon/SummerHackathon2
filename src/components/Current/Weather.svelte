@@ -23,7 +23,7 @@
 
 <div class="weather">
   <div class="weathericon">
-    <Media left href="#">
+    <Media left >
       <Media
         object
         src={currentWeather.weatherIconUrl}
