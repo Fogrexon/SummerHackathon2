@@ -1,4 +1,5 @@
 const functions = require('firebase-functions');
+const request = require('request');
 const axios = require('axios');
 require('dotenv').config();
 
@@ -66,6 +67,24 @@ exports.entertainment = functions.https.onRequest((req, res) => {
       res.status(500).send({});
       return false;
     });
+});
+exports.station = functions.https.onRequest((req, res) => {
+  const proxyUrl = 'http://map.simpleapi.net/stationapi';
+  const params = req.query;
+  delete params.severity;
+  delete params.message;
+  axios.get(proxyUrl, { params })
+    .then((data) => res.status(200).send(data.data))
+    .catch((err) => {
+      functions.logger.log(err);
+      res.status(500).send({});
+      return false;
+    });
+});
+
+exports.weathericon = functions.https.onRequest(function (req, res) {
+  const url = `http://openweathermap.org/img/wn/${req.query.id}@4x.png`;
+  request.get(url).pipe(res);
 });
 
 // // Create and Deploy Your First Cloud Functions

@@ -35,7 +35,7 @@ const getCurrentWeatherData = (data) => {
   return {
     weather: main,
     weatherDetail: description,
-    weatherIconUrl: `http://openweathermap.org/img/wn/${icon}@4x.png`,
+    weatherIconUrl: `/weathericon?id=${icon}`,
     temperature: temp - ABSOLUTE_TEMPERATURE,
     windSpeed: speed,
     windDegree: deg,
@@ -85,7 +85,6 @@ export const getCurrentWeather = async (lat, lon) => {
 
   try {
     const data = await axios.get(url, { params });
-    console.log(data);
     return getCurrentWeatherData(data.data);
   } catch (e) {
     return e;

@@ -29,6 +29,14 @@
         "function": "placelabel"
       },
       {
+        "source": "/station",
+        "function": "station"
+      },
+      {
+        "source": "/weathericon",
+        "function": "weathericon"
+      },
+      {
         "source": "**",
         "destination": "/index.html"
       }
