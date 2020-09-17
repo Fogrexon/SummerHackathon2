@@ -14,7 +14,7 @@
     </script>
   
   <Navbar color="light" light>
-    <NavbarBrand href="/" class="mr-auto">hacktrip</NavbarBrand>
+    <NavbarBrand href="/" class="mr-auto"><img src="/images/logo.svg" alt="hacktrip logo" height="60px"></NavbarBrand>
     <NavbarToggler on:click={toggle} className="mr-2" />
     <Collapse {isOpen} navbar>
       <Nav navbar>
@@ -22,7 +22,7 @@
           <NavLink href="/#/current/">Current Location</NavLink>
         </NavItem>
         <NavItem>
-          <NavLink href="#AboutUs">About</NavLink>
+          <NavLink href="/#/about">About</NavLink>
         </NavItem>
       </Nav>
     </Collapse>

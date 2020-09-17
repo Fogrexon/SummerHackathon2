@@ -50,7 +50,6 @@ export const getNearEntertainment = async (lat, lon, start = 1) => {
     const data = await axios.get(url, {
       params,
     });
-    console.log(data);
     const {
       ResultInfo: {
         Total,

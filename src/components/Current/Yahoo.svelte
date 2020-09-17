@@ -1,5 +1,6 @@
 <script>
   import { onMount } from 'svelte';
+  import { Spinner } from 'sveltestrap';
   import Card from './Card.svelte';
   import { getNearEntertainment } from '../../api/yahooapi';
   import { onLocationChange } from '../../stores/geoLocationStore';
@@ -11,6 +12,7 @@
   let totalHitCount = 0;
 
   let features = [];
+  let loading = true;
   onMount(() => {
     // このコンポーネントがマウントされたとき
     onLocationChange((value) => {
@@ -33,11 +35,13 @@
             // eslint-disable-next-line no-plusplus
             label: (restNum++) + 1,
           })));
+          loading = false;
         });
     });
   });
 
   const getMoreRestaurants = () => {
+    loading = true;
     getNearEntertainment(lat, lon, restNum + 1)
       .then((data) => {
         features = [
@@ -56,6 +60,7 @@
           // eslint-disable-next-line no-plusplus
           label: (restNum++) + 1,
         })));
+        loading = false;
       });
   };
 </script>
@@ -69,11 +74,14 @@
         url={feature.url}
         />
     {/each}
-    {#if restNum < totalHitCount}
+    {#if loading}
+      <div class="end-of-list">
+        <Spinner color="primary" />
+      </div>
+    {:else if restNum < totalHitCount}
       <div class="end-of-list">
         <i class="fas fa-plus next-icon" on:click={() => getMoreRestaurants()}></i>
       </div>
-      
     {/if}
   </ul>
 </div>

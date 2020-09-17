@@ -1,5 +1,6 @@
 <script>
   import { onMount } from 'svelte';
+  import { Spinner } from 'sveltestrap';
   import Card from './Card.svelte';
   import { getNearRestaurant } from '../../api/gurunaviapi';
   import { onLocationChange } from '../../stores/geoLocationStore';
@@ -9,6 +10,7 @@
   let lon;
   let restNum = 0;
   let totalHitCount = 0;
+  let loading = true;
 
   let restaurants = [];
   onMount(() => {
@@ -18,10 +20,12 @@
       lat = value.latitude;
       lon = value.longitude;
       if (lat === 0 && lon === 0) return;
+  
       getNearRestaurant(lat, lon)
         .then((data) => {
           restaurants = data.restaurants.map((rest, i) => ({ ...rest, label: restNum + i + 1 }));
           totalHitCount = data.totalHitCount;
+          loading = false;
           addPins(restaurants.map(({
             name, url, latitude, longitude,
           }) => ({
@@ -38,6 +42,7 @@
   });
 
   const getMoreRestaurants = () => {
+    loading = true;
     getNearRestaurant(lat, lon, restNum + 1)
       .then((data) => {
         restaurants = [
@@ -45,6 +50,7 @@
           // eslint-disable-next-line no-plusplus
           ...data.restaurants.map((rest, i) => ({ ...rest, label: restNum + i + 1 })),
         ];
+        loading = false;
 
         addPins(data.restaurants.map(({
           name, url, latitude, longitude,
@@ -70,11 +76,14 @@
         category={restaurant.category}
         />
     {/each}
-    {#if restNum < totalHitCount}
+    {#if loading}
+      <div class="end-of-list">
+        <Spinner color="primary" />
+      </div>
+    {:else if restNum < totalHitCount}
       <div class="end-of-list">
         <i class="fas fa-plus next-icon" on:click={() => getMoreRestaurants()}></i>
       </div>
-      
     {/if}
   </ul>
 </div>

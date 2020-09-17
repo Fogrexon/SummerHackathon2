@@ -1,10 +1,10 @@
 <script>
   import { onMount } from 'svelte';
-  import { Table } from 'sveltestrap';
+  import { Table, Spinner } from 'sveltestrap';
   import { getNearStation } from '../../api/simpleapi';
   import { onLocationChange } from '../../stores/geoLocationStore';
 
-  let stations = [];
+  let stations = null;
   onMount(() => {
     // このコンポーネントがマウントされたとき
     onLocationChange((value) => {
@@ -27,16 +27,23 @@
     </tr>
   </thead>
   <tbody>
-    {#each stations as station, i}
-      <tr>
-        <th scope="row">{i + 1}</th>
-        <td>{station.name}</td>
-        <td>{station.line}</td>
-        <td>{station.traveltime.replace('以上', '')}</td>
-      </tr>
-    {/each}
+    {#if stations}
+      {#each stations as station, i}
+        <tr>
+          <th scope="row">{i + 1}</th>
+          <td>{station.name}</td>
+          <td>{station.line}</td>
+          <td>{station.traveltime.replace('以上', '')}</td>
+        </tr>
+      {/each}
+    {/if}
   </tbody>
 </Table>
+{#if !stations}
+  <div class="spin">
+    <Spinner color="primary" />
+  </div>
+{/if}
 
 <style>
   tbody {
@@ -44,5 +51,10 @@
   }
   table {
     width: 100%;
+  }
+  .spin {
+    width: 100%;
+    display: flex;
+    justify-content: center;
   }
 </style>

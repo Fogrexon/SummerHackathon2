@@ -1,11 +1,11 @@
 
 <script>
-  import { Media } from 'sveltestrap';
+  import { Media, Spinner } from 'sveltestrap';
   import { onMount } from 'svelte';
   import { getCurrentWeather } from '../../api/openweathermap';
   import { onLocationChange } from '../../stores/geoLocationStore';
   
-  let currentWeather = [];
+  let currentWeather = null;
   onMount(() => {
     // このコンポーネントがマウントされたとき
     onLocationChange((value) => {
@@ -19,26 +19,34 @@
   });
 </script>
 
-<h4>{currentWeather.city}</h4>
+<h4>{currentWeather ? currentWeather.city : 'Loading...'}</h4>
 
 <div class="weather">
-  <div class="weathericon">
-    <Media left href="#">
-      <Media
-        object
-        src={currentWeather.weatherIconUrl}
-        alt="currentWeather image" />
-    </Media>
-  </div>
-  <div class="temperature">
-    <span>{Math.floor(currentWeather.temperature)}℃</span>
-  </div>
+  {#if currentWeather}
+    <div class="weathericon">
+      <Media left >
+        <Media
+          object
+          src={currentWeather.weatherIconUrl}
+          alt="currentWeather image" />
+      </Media>
+    </div>
+    <div class="temperature">
+      <span>{Math.floor(currentWeather.temperature)}℃</span>
+    </div>
+  {:else}
+    <Spinner color="primary" />
+  {/if}
 </div>
 
 <style>
 .weather {
   display:flex;
   align-content: space-around;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 200px;
 }
 .weathericon {
   flex-grow:2;
