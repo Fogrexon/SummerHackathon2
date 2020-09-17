@@ -1,6 +1,7 @@
 
 <script>
 /* eslint-disable no-undef */
+import { Spinner } from 'sveltestrap';
 import { onLocationChange } from '../stores/geoLocationStore';
 import { pins } from '../stores/pinsStore';
 
@@ -12,6 +13,7 @@ const apiKey = __myapp.env.GOOGLE_MAP_API_KEY;
 let lat;
 let lng;
 let pinNum = 0;
+let loading = true;
 
 const makeUserLocation = () => {
   // eslint-disable-next-line no-unused-vars
@@ -73,6 +75,7 @@ window.initMap = () => {
     lat = value.latitude;
     lng = value.longitude;
     if (lat === 0 && lng === 0) return;
+    loading = false;
     // eslint-disable-next-line no-undef
     map = new google.maps.Map(container, {
       zoom: 15,
@@ -91,12 +94,21 @@ window.initMap = () => {
 	src="https://maps.googleapis.com/maps/api/js?key={apiKey}&callback=initMap">
 	</script>
 </svelte:head>
+{#if loading}
+  <div class="loading-box map">
+      <Spinner color="primary"/>
+  </div>
+{/if}
+<div class="map" bind:this={container}>
+</div>
 <style>
   .map {
     height: 100%;
     width: 100%;
   }
+  .loading-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 </style>
-<div class="map" bind:this={container}>
-
-</div>
