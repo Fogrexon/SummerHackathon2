@@ -20,6 +20,7 @@
   <strong class="justdoit">
     JUST OPEN THE NAVIGATION BAR ON THE RIGHT TOP AND CLICK "current location"!!!!!!
   </strong>
+  <p class="topics">    <i class="fas fa-map-marked-alt"></i>     <i class="fas fa-cloud-sun"></i>     <i class="fas fa-utensils"></i>     <i class="fas fa-subway"></i></p>
 </Container>
 
 <style>
@@ -28,5 +29,11 @@
   }
   .tips{
     font-size: 25px;
+  }
+  .topics{
+    display: flex;
+    font-size: 180px;
+    justify-content: space-around;
+
   }
 </style>
