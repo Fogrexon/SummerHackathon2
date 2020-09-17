@@ -39,6 +39,7 @@ export const getNearRestaurant = async (lat, lon, offset = 1) => {
     latitude: lat,
     longitude: lon,
     offset,
+    range: 3,
     keyid: __myapp.env.GURUNAVI_API_KEY,
   };
   const url = 'https://api.gnavi.co.jp/RestSearchAPI/v3';

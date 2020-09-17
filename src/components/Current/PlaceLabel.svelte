@@ -10,11 +10,11 @@
       if (latitude === 0 && longitude === 0) return;
       getPlaceLabel(latitude, longitude)
         // eslint-disable-next-line no-return-assign
-        .then((_label) => (label = _label));
+        .then((_label) => label = _label);
     });
   });
 </script>
 
 <h1>
-  {label}
+  {label || 'Loading...'}
 </h1>
