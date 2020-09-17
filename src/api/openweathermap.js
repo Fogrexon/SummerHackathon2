@@ -1,3 +1,4 @@
+/* eslint-disable import/prefer-default-export */
 /* eslint-disable no-undef */
 import axios from 'axios';
 
@@ -50,60 +51,61 @@ const getCurrentWeatherData = (data) => {
   // weatherDetail: day.weather.description,
   // windSpeed: day.speed,
   // windDegree: day.deg,
-const getWeatherForecastData = (data) => {
-  const {
-    city: {
-      id,
-      name,
-    },
-    list,
-  } = data;
-  const forecast = list.map((day) => ({
-    temperature: day.temp.day - ABSOLUTE_TEMPERATURE,
-    weather: day.weather.main,
-    weatherDetail: day.weather.description,
-    windSpeed: day.speed,
-    windDegree: day.deg,
-  }));
+// const getWeatherForecastData = (data) => {
+//   const {
+//     city: {
+//       id,
+//       name,
+//     },
+//     list,
+//   } = data;
+//   const forecast = list.map((day) => ({
+//     temperature: day.temp.day - ABSOLUTE_TEMPERATURE,
+//     weather: day.weather.main,
+//     weatherDetail: day.weather.description,
+//     windSpeed: day.speed,
+//     windDegree: day.deg,
+//   }));
 
-  return {
-    city: name,
-    cityId: id,
-    forecast,
-  };
-};
+//   return {
+//     city: name,
+//     cityId: id,
+//     forecast,
+//   };
+// };
 
 export const getCurrentWeather = async (lat, lon) => {
   const params = {
     lat,
     lon,
-    appid: __myapp.env.WEATHER_MAP_API_KEY,
   };
 
-  const url = 'https://api.openweathermap.org/data/2.5/weather';
+  // const url = 'https://api.openweathermap.org/data/2.5/weather';
+  const url = '/weather';
 
   try {
     const data = await axios.get(url, { params });
+    console.log(data);
     return getCurrentWeatherData(data.data);
   } catch (e) {
     return e;
   }
 };
 
-export const getWeatherForecast = async (lat, lon, cnt) => {
-  const params = {
-    lat,
-    lon,
-    cnt,
-    appid: __myapp.env.WEATHER_MAP_API_KEY,
-  };
+// export const getWeatherForecast = async (lat, lon, cnt) => {
+//   const params = {
+//     lat,
+//     lon,
+//     cnt,
+//     appid: __myapp.env.WEATHER_MAP_API_KEY,
+//   };
 
-  const url = 'https://api.openweathermap.org/data/2.5/forecast/daily';
+//   const url = 'https://api.openweathermap.org/data/2.5/forecast/daily';
 
-  try {
-    const data = await axios.get(url, { params });
-    return getWeatherForecastData(data.data);
-  } catch (e) {
-    return e;
-  }
-};
+//   try {
+//     const data = await axios.get(url, { params });
+//     return getWeatherForecastData(data.data);
+//   } catch (e) {
+//     return e;
+//   }
+// };

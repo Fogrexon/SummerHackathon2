@@ -39,9 +39,9 @@ export const getNearRestaurant = async (lat, lon, offset = 1) => {
     latitude: lat,
     longitude: lon,
     offset,
-    keyid: __myapp.env.GURUNAVI_API_KEY,
   };
-  const url = 'https://api.gnavi.co.jp/RestSearchAPI/v3';
+  // const url = 'https://api.gnavi.co.jp/RestSearchAPI/v3';
+  const url = '/gurunavi';
 
   try {
     const data = await axios.get(url, { params });

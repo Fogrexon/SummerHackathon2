@@ -8,12 +8,11 @@ export const getPlaceLabel = async (lat, lon) => {
   const params = {
     lat,
     lon,
-    appid: __myapp.env.YAHOO_API_KEY,
   };
+  const url = '/placelabel';
   try {
-    const placeLabel = await axios.get('https://map.yahooapis.jp/placeinfo/V1/get', {
+    const placeLabel = await axios.get(url, {
       params,
-      adapter: axiosJsonpAdapter,
     });
     if (placeLabel.status !== 200) return '';
     const {
@@ -37,7 +36,6 @@ export const getPlaceLabel = async (lat, lon) => {
 
 export const getNearEntertainment = async (lat, lon, start = 1) => {
   const params = {
-    appid: __myapp.env.YAHOO_API_KEY,
     lat,
     lon,
     dist: 3,
@@ -47,10 +45,10 @@ export const getNearEntertainment = async (lat, lon, start = 1) => {
     results: 10,
     start,
   };
+  const url = '/entertainment';
   try {
-    const data = await axios.get('https://map.yahooapis.jp/search/local/V1/localSearch', {
+    const data = await axios.get(url, {
       params,
-      adapter: axiosJsonpAdapter,
     });
     console.log(data);
     const {

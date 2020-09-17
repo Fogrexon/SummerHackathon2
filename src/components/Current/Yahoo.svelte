@@ -77,7 +77,7 @@
     {/if}
   </ul>
 </div>
-<img src="/images/yahoo.logo.gif" />
+<img src="/images/yahoo.logo.gif" alt='yahoo logo' />
 
 <style>
   .card-list {

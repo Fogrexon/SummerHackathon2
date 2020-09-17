@@ -13,6 +13,22 @@
     ],
     "rewrites": [
       {
+        "source": "/weather",
+        "function": "weather"
+      },
+      {
+        "source": "/gurunavi",
+        "function": "gurunavi"
+      },
+      {
+        "source": "/entertainment",
+        "function": "entertainment"
+      },
+      {
+        "source": "/placelabel",
+        "function": "placelabel"
+      },
+      {
         "source": "**",
         "destination": "/index.html"
       }
