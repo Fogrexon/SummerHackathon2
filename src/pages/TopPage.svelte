@@ -3,9 +3,7 @@
 </script>
 
 <Jumbotron>
-  <h1>
-    Welcome to hacktrip!!!
-  </h1>
+  <h1>Welcome to <img src="/images/logo.svg" style="height: 100px" alt="hacktrip logo"/></h1>
 </Jumbotron>
 <Container>
   <p>
